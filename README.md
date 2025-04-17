@@ -1,15 +1,16 @@
 # Docker Attach Debugger
 
-Docker環境でNode.jsアプリケーションを実行し、デバッグするためのテンプレートプロジェクトです。
+Docker環境でBunを使用したElysiaJSアプリケーションを実行し、デバッグするためのテンプレートプロジェクトです。
 
 ## 機能
 
-- Docker内でNode.jsアプリケーションを実行
+- Docker内でBun + ElysiaJSアプリケーションを実行
 - 開発/本番環境の切り替えが容易
 - デバッガーをアタッチするための設定を含む
 - ボリュームマウントによるホットリロード対応
 - ElysiaJSフレームワークを使用したサーバーアプリケーション
 - Docker Compose Watchによるホットリロード環境
+- 高速なBunランタイムによる開発体験の向上
 
 ## 使用方法
 
@@ -48,6 +49,16 @@ docker compose --env-file .env.production up
 docker compose --env-file .env.production build
 ```
 
+### Bunの利点
+
+このプロジェクトはNodeJSとYarnではなくBunを使用しています：
+
+- 高速な起動と実行時間
+- 組み込みのウォッチモードでのホットリロード
+- 型チェックが内蔵されたランタイム
+- 効率的な依存関係管理
+- ElysiaJSとの最適な互換性
+
 ### 環境変数
 
 `.env.development`または`.env.production`ファイルで環境設定を管理できます：
@@ -73,7 +84,8 @@ docker push myregistry.com/myapp
 
 ## 詳細情報
 
+- [Bun 公式サイト](https://bun.sh/)
 - [ElysiaJS 公式サイト](https://elysiajs.com/)
+- [ElysiaJS 本番ビルドガイド](https://elysiajs.com/tutorial.html#build-for-production)
 - [Docker Compose Watch ドキュメント](https://docs.docker.com/compose/how-tos/file-watch/)
-- [Docker Node.js ガイド](https://docs.docker.com/language/nodejs/)
 - [Docker 公式ドキュメント](https://docs.docker.com/)
