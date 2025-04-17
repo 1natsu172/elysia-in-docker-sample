@@ -2,7 +2,17 @@
   "name": "docker-attach-debugger",
   "packageManager": "yarn@4.6.0",
   "scripts": {
-    "dev": "echo 'Development mode started!' && tail -f /dev/null",
-    "start": "echo 'Production mode started!' && tail -f /dev/null"
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsup src/index.ts --format esm,cjs --dts"
+  },
+  "dependencies": {
+    "elysia": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
   }
 }

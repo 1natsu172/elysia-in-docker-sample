@@ -19,6 +19,20 @@ services:
       # ${XXX:-hoge}記法の右辺はデフォルト値設定
       NODE_ENV: ${NODE_ENV:-development}
     command: yarn ${APP_COMMAND:-dev}
+    # Docker Compose Watch設定
+    develop:
+      watch:
+        # ソースコード変更時の自動リロード
+        - path: ./src
+          action: sync+restart
+          target: /usr/src/app/src
+        # package.jsonの変更時は依存関係を更新
+        - path: ./package.json
+          action: rebuild
+        # 依存関係ファイルの監視
+        - path: ./node_modules
+          action: sync
+          target: /usr/src/app/node_modules
 
 volumes:
   node_modules:
