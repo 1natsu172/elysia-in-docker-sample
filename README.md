@@ -33,6 +33,11 @@ docker compose up --watch
 
 `--env-file` はなくてもデフォルト値設定があるので基本動きますが指定する方が間違いがないです。
 
+#### debugger
+
+出力されるdebug.bun.shのURLの0.0.0.0をlocalhostに書き換えてブラウザアクセスしてください。
+ref: https://github.com/oven-sh/bun/issues/7225
+
 ### API エンドポイント
 
 アプリケーションが起動すると、以下のエンドポイントが利用可能になります：

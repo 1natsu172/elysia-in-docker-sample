@@ -2,7 +2,7 @@
   "name": "docker-attach-debugger",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch src/index.ts",
+    "dev": "bun --inspect=0.0.0.0:9229 --watch src/index.ts",
     "start": "./dist/server",
     "build": "bun build --compile --minify --sourcemap --outfile ./dist/server src/index.ts"
   },
