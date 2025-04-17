@@ -1,4 +1,8 @@
 {
   "name": "docker-attach-debugger",
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.6.0",
+  "scripts": {
+    "dev": "echo 'Development mode started!' && tail -f /dev/null",
+    "start": "echo 'Production mode started!' && tail -f /dev/null"
+  }
 }

@@ -1,0 +1,22 @@
+# syntax=docker/dockerfile:1
+
+ARG NODE_VERSION=22.14.0
+
+FROM node:${NODE_VERSION}-alpine
+
+# 開発環境設定
+ENV NODE_ENV=development
+
+# Corepackの有効化
+RUN corepack enable
+
+WORKDIR /usr/src/app
+
+# 依存関係ファイルのコピー（開発時はボリュームマウント使用）
+COPY package.json yarn.lock ./
+
+# アプリケーションポート
+EXPOSE 4001
+
+# 開発用コマンド
+CMD ["yarn", "dev"]
