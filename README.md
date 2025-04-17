@@ -19,15 +19,19 @@ Docker環境でBunを使用したElysiaJSアプリケーションを実行し、
 開発環境でアプリケーションを起動するには：
 
 ```bash
-# 通常の起動
-docker compose --env-file .env.development up
+# 初回
+docker compose --env-file .env.development up --build
 
-# Docker Compose Watchを使用したホットリロード環境（推奨）
+# 2回目以降
 docker compose --env-file .env.development watch
 
 # または単にコンテナを起動する場合
 docker compose up
+# ホットリロードありで単にコンテナを起動する場合
+docker compose up --watch
 ```
+
+`--env-file` はなくてもデフォルト値設定があるので基本動きますが指定する方が間違いがないです。
 
 ### API エンドポイント
 
