@@ -18,7 +18,6 @@ const users = [
 ];
 
 const app = new Elysia()
-	.listen(4001)
 	// ヘルスチェックエンドポイント
 	.get("/health", () => ({
 		status: "ok",
@@ -44,7 +43,8 @@ const app = new Elysia()
 	})
 
 	// ルートパス
-	.get("/", () => "ElysiaJS アプリケーションへようこそ！");
+	.get("/", () => "ElysiaJS アプリケーションへようこそ！")
+	.listen(4001);
 
 console.log(
 	`🦊 サーバーが起動しました on http://${app.server?.hostname}:${app.server?.port}`,
