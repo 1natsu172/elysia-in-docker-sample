@@ -1,17 +1,6 @@
-# 基本設定
-x-app-common: &app-common
-  build:
-    context: .
-  ports:
-    - 4001:4001
-  volumes:
-    - .:/usr/src/app
-    - node_modules:/usr/src/app/node_modules
-
 services:
   # アプリケーションサービス
   app:
-    <<: *app-common
     build:
       context: .
       dockerfile: ${DOCKERFILE:-Dockerfile.dev}
@@ -19,12 +8,15 @@ services:
       # ${XXX:-hoge}記法の右辺はデフォルト値設定
       NODE_ENV: ${NODE_ENV:-development}
     command: bun ${APP_COMMAND:-dev}
+    ports:
+      - 4001:4001
+      - 9229:9229
     # Docker Compose Watch設定
     develop:
       watch:
         # ソースコード変更時の自動リロード
         - path: ./src
-          action: sync+restart
+          action: sync
           target: /usr/src/app/src
         # package.jsonの変更時は依存関係を更新
         - path: ./package.json
@@ -33,6 +25,3 @@ services:
         - path: ./node_modules
           action: sync
           target: /usr/src/app/node_modules
-
-volumes:
-  node_modules:
