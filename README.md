@@ -33,6 +33,16 @@ docker compose up --watch
 
 `--env-file` はなくてもデフォルト値設定があるので基本動きますが指定する方が間違いがないです。
 
+BunではなくNode.jsで動かす場合：
+
+環境変数でnode用の設定を当てます。
+
+```bash
+DOCKERFILE=Dockerfile.dev.node APP_COMMAND=dev:node docker compose up --build
+```
+
+`.env.development.node`　のように別途envファイルを用意して読み込ませてもOKです。
+
 #### debugger
 
 出力されるdebug.bun.shのURLの0.0.0.0をlocalhostに書き換えてブラウザアクセスしてください。

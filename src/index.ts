@@ -1,4 +1,13 @@
-import { Elysia } from "elysia";
+import { node } from "@elysiajs/node";
+import { Elysia, type ElysiaAdapter } from "elysia";
+import { BunAdapter } from "elysia/adapter/bun";
+
+// ランタイム判定関数
+function detectRuntime(): "Bun" | "Node.js" {
+	return typeof globalThis.Bun !== "undefined" ? "Bun" : "Node.js";
+}
+
+const adapter: ElysiaAdapter = detectRuntime() === "Bun" ? BunAdapter : node();
 
 // モックユーザーデータ
 const users = [
@@ -17,12 +26,15 @@ const users = [
 	},
 ];
 
-const app = new Elysia()
+const app = new Elysia({
+	adapter,
+})
 	// ヘルスチェックエンドポイント
 	.get("/health", () => ({
 		status: "ok",
 		timestamp: new Date().toISOString(),
 		environment: process.env.NODE_ENV,
+		runtime: detectRuntime(),
 	}))
 
 	// ユーザー情報を返すエンドポイント
@@ -42,12 +54,21 @@ const app = new Elysia()
 		};
 	})
 
+	// ランタイム情報を返すエンドポイント
+	.get("/runtime", () => ({
+		runtime: detectRuntime(),
+		version: process.version,
+		platform: process.platform,
+		arch: process.arch,
+	}))
+
 	// ルートパス
 	.get("/", () => "ElysiaJS アプリケーションへようこそ！")
 	.listen(4001);
 
+// 起動ログにランタイム情報を表示
 console.log(
-	`🦊 サーバーが起動しました on http://${app.server?.hostname}:${app.server?.port}`,
+	`🦊 サーバーが起動しました on http://${app.server?.hostname}:${app.server?.port} (${detectRuntime()})`,
 );
 
 // プロセス終了時の処理
