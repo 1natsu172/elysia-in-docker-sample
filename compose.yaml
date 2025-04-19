@@ -21,7 +21,3 @@ services:
         # package.jsonの変更時は依存関係を更新
         - path: ./package.json
           action: rebuild
-        # 依存関係ファイルの監視
-        - path: ./node_modules
-          action: sync
-          target: /usr/src/app/node_modules

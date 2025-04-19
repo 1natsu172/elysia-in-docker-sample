@@ -7,9 +7,12 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/src/app
 
+# 依存モジュールのインストール
+COPY package.json bun.lock ./
+RUN bun install --production --frozen-lockfile
+
 # ソースコードのコピーとビルド
 COPY . .
-RUN bun install --production
 RUN bun run build
 
 # 本番環境用イメージ

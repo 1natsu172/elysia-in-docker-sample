@@ -7,9 +7,12 @@ ENV NODE_ENV=development
 
 WORKDIR /usr/src/app
 
+# 依存モジュールのインストール
+COPY package.json bun.lock ./
+RUN bun install
+
 # ソースファイルのコピー
 COPY . .
-RUN bun install
 
 # アプリケーションポート
 EXPOSE 4001
