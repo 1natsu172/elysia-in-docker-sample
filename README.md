@@ -45,8 +45,22 @@ DOCKERFILE=Dockerfile.dev.node APP_COMMAND=dev:node docker compose up --build
 
 #### debugger
 
+##### Bunランタイムで実行しつつDebugger接続する場合
+
 出力されるdebug.bun.shのURLの0.0.0.0をlocalhostに書き換えてブラウザアクセスしてください。
 ref: https://github.com/oven-sh/bun/issues/7225
+
+##### Nodeランタイムで実行しつつDebugger接続する場合
+
+1. Node.jsランタイムで開発サーバーを立ち上げる
+
+```bash
+DOCKERFILE=Dockerfile.dev.node APP_COMMAND=dev:node docker compose up --build
+```
+
+2. 0.0.0.0:9229へデバッガーをアタッチする
+
+VSCodeの場合launch.jsonにアタッチコンフィグを用意してあるので、デバッガータブから接続できます。
 
 ### API エンドポイント
 
