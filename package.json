@@ -5,7 +5,7 @@
     "dev": "bun --inspect=0.0.0.0:9229 --watch src/index.ts",
     "start": "./dist/server",
     "build": "bun build --compile --minify --sourcemap --outfile ./dist/server src/index.ts",
-    "dev:node": "tsx watch src/index.ts",
+    "dev:node": "tsx watch --inspect=0.0.0.0:9229 src/index.ts ",
     "build:node": "tsc --outDir dist -p ./tsconfig.json",
     "start:node": "NODE_ENV=production node dist/index.js"
   },
