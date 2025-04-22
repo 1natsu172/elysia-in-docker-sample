@@ -26,6 +26,31 @@ const users = [
 	},
 ];
 
+// モック商品データ
+const products = [
+	{
+		id: "1",
+		name: "高級腕時計",
+		price: 120000,
+		category: "アクセサリー",
+		stock: 5,
+	},
+	{
+		id: "2",
+		name: "スマートフォン",
+		price: 85000,
+		category: "電子機器",
+		stock: 23,
+	},
+	{
+		id: "3",
+		name: "ノートパソコン",
+		price: 150000,
+		category: "電子機器",
+		stock: 12,
+	},
+];
+
 const app = new Elysia({
 	adapter,
 })
@@ -51,6 +76,45 @@ const app = new Elysia({
 		return {
 			status: 200,
 			body: user,
+		};
+	})
+
+	// 商品情報を返すエンドポイント（パスパラメータ使用）
+	.get("/v1/products/:id", ({ params: { id } }) => {
+		const product = products.find((product) => product.id === id);
+
+		if (!product) {
+			return {
+				status: 404,
+				body: { error: "商品が見つかりません" },
+			};
+		}
+
+		return {
+			status: 200,
+			body: product,
+		};
+	})
+
+	// ユーザー検索エンドポイント（クエリパラメータ使用）
+	.get("/v1/users/search", ({ query }) => {
+		const { role, name } = query;
+		let filteredUsers = [...users];
+
+		if (role) {
+			filteredUsers = filteredUsers.filter((user) => user.role === role);
+		}
+
+		if (name) {
+			filteredUsers = filteredUsers.filter((user) => user.name.includes(name));
+		}
+
+		return {
+			status: 200,
+			body: {
+				count: filteredUsers.length,
+				users: filteredUsers,
+			},
 		};
 	})
 
